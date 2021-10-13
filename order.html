@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="site.css">
+    <title>Snacks | Marinas Snack Spot</title>
+    <style type="text/css">
+        h1 {
+            font-size: 3em;
+            margin-top: 0.5em;
+        }
+        .image .snack-images {
+            width: 100%;
+        }
+        .snack-list {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+        }
+        .inner-info {
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+        .input-group{
+            margin-bottom: 10px;
+        }
+        .reset{
+            background: transparent;
+            text-decoration: underline;
+            cursor: pointer;
+            border: 0;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select{
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #999;
+            border-radius: 2px;
+        }
+        .submit{
+            padding: 10px;
+        }
+        @media only screen and (min-width:  768px) {
+            article{
+                width:  350px;
+            }
+        }
+      
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="snacks.html">Snacks</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <aside>
+            <img src="images/logo.png" alt="logo image">
+        </aside>
+        <article>
+            <h1>Order</h1>
+            <div class="snack-list">
+                    <div class="image">
+                        <img src="images/cherry-pie.png" alt="" class="snack-images">
+                    </div>
+                    <div class="info">
+                        <div class="inner-info">
+                            <h3 class="title"></h3>
+                            <h3 class="price"></h3>
+                        </div>
+                        <p class="description"></p>
+                    </div>
+
+                </div>
+            <form action="" method="POST">
+                <div class="input-group">
+                    <div><label for="first-name">First Name</label>
+                    </div>
+                    <div>
+                        <input type="text" name="first-name" id="first-name">  
+                    </div>
+                </div>
+
+                <div class="input-group"><input type="text" id="location"></div>
+
+                <div class="input-group">
+                    <div>
+                        <label for="last-name">Last Name</label>    
+                    </div>
+                    <div>
+                        <input type="text" name="last-name" id="last-name">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div>
+                        <label for="address">Address</label>    
+                    </div>
+                    <div>
+                        <input type="text" name="address" id="address">
+                    </div>
+                </div>
+                    <div class="input-group">
+                    <div>
+                        <label for="last-name">District</label>    
+                    </div>
+                        <select name="district" id="district">
+                            <option value="" selected="">[ Select One]</option>
+
+                            <option value="Kampala">Kampala</option>
+                            <option value="Wakiso">Wakiso</option>
+                            <option value="Entebbe">Entebbe</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <div>
+                            <label for="message">Message</label> 
+                        </div>
+                        <div>
+                            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+                            
+                        </div>
+
+                    </div>
+                    <button type="reset" class="reset">Reset</button>
+                    <button type="submit" class="submit">Order</button>
+
+            </form>
+        </article>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">Snacks</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+        </nav>
+    </footer>
+    <script>
+       window.addEventListener("DOMContentLoaded", ()=>{
+         const locationBox = document.querySelector("#location")
+         let location = {
+            latitude: "Unknown",
+            longitude: "Unknown"
+         }
+         window.navigator.geolocation.getCurrentPosition((position)=>{
+            location = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+
+            }
+            locationBox.value = JSON.stringify(location);
+            console.log(locationBox.value)
+
+         }, (error)=>{
+            location = {
+                latitude: "Unknown",
+                longitude: "Unknown"
+            }
+            locationBox.value = JSON.stringify(location);
+            console.log(locationBox.value)
+
+         })
+         const order = localStorage.getItem("order");
+        if (order) {
+              const passedOrder = JSON.parse(order)
+              const title = document.querySelector('.title').innerHTML = passedOrder.title;
+              const price = document.querySelector('.price').innerHTML = passedOrder.price;
+              const description = document.querySelector('.description').innerHTML = passedOrder.description;
+              const addImage = document.querySelector('.snack-images').setAttribute("src",`images/${passedOrder.id}.png`)
+        }
+       })
+
+    </script>
+</body>
+
+</html>

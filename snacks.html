@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="site.css">
+	<title>Snacks | Marinas Snack Spot</title>
+	<style type="text/css">
+		h1 {
+			font-size: 3em;
+			margin-top: 0.5em;
+		}
+
+		.banner {
+			max-width: 100%;
+		}
+
+		.sub-title {
+			background-color: #fff;
+			font-size: 1.5em;
+			padding: 10px;
+		}
+
+		section>div {
+			background-color: #fff;
+			margin: 10px;
+			padding: 8px;
+			width: 100%;
+		}
+
+
+		.image .snack-images {
+			width: 100%;
+		}
+
+		.btn {
+			display: block;
+			text-align: center;
+			margin-top: 5px;
+			background-color: #e75874;
+			padding: 8px 15px 8px 15px;
+			border: none;
+			color: #fff;
+			width: 100%;
+
+		}
+
+		.info {
+			padding: 10px 0;
+		}
+
+		.inner-info {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		/*
+
+			
+		*/
+		@media only screen and (min-width: 768px) {
+			section {
+				display: flex;
+			}
+
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="snacks.html">Snacks</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<aside>
+			<img src="images/logo.png" alt="logo image">
+		</aside>
+		<article>
+			<h1>Pies</h1>
+			<section>
+				<div class="snack-list">
+					<div class="image">
+						<img src="images/cherry-pie.png" alt="" class="snack-images">
+					</div>
+					<div class="info">
+						<div class="inner-info">
+							<h3 class="title">Cherrie Pie</h3>
+							<h3 class="price">$12.0</h3>
+						</div>
+						<p class="description">Our tasty Cherrie Pie</p>
+						<button href="" data-order="cherry-pie" class="btn">Order Now</button>
+					</div>
+
+				</div>
+				<div>
+					<div class="image">
+						<img src="images/apple-pie.png" alt="" class="snack-images">
+					</div>
+					<div class="info">
+						<div class="inner-info">
+							<h3 class="title">Apple Pie</h3>
+							<h3 class="price">$15.0</h3>
+						</div>
+						<p class="description">Our tasty Apple Pie</p>
+						<button href="" data-order="apple-pie" class="btn">Order Now</button>
+
+					</div>
+
+				</div>
+
+			</section>
+		</article>
+	</main>
+	<footer>
+		<nav>
+			<ul>
+				<li><a href="">Home</a></li>
+				<li><a href="">Snacks</a></li>
+				<li><a href="">Contact</a></li>
+			</ul>
+		</nav>
+	</footer>
+	<script>
+		//take action when the document is fully loaded
+		window.addEventListener("DOMContentLoaded", (e) => {
+			//get all buttons
+			let buttons = document.querySelectorAll("button[data-order]");
+			//loop through all of them and get the desired content
+			buttons.forEach((button) => {
+				button.addEventListener("click", (e) => {
+					//get the target
+					const button = e.currentTarget;
+					//get the parent
+					const container = button.parentNode;
+					const order = {
+						id: button.getAttribute("data-order"),
+						title: container.querySelector('.title').innerText,
+						price: container.querySelector('.price').innerText,
+						description: container.querySelector('.description').innerText
+					}
+					localStorage.setItem("order", JSON.stringify(order));
+					const url = window.location.href.replace("snacks.html", "order.html");
+					window.location.href = url
+
+				})
+			})
+		})
+	</script>
+</body>
+
+</html>
